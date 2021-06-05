@@ -166,6 +166,7 @@ namespace PerspectifyTut
                 string Type = Console.ReadLine();
                 Console.WriteLine("Enter initial Amount: ");
                 int Amount = Convert.ToInt32(Console.ReadLine());
+                if (Amount < 0) Amount = 0;
                 string Query = "INSERT INTO Users(`HolderName`,`AccountNo`,`Type`,`Balance`) VALUES(@HolderName,@AccountNo,@type,@Balance)";
                 SQLiteCommand InsertCommand = new SQLiteCommand(Query, Dataobject.myConnection);
                 InsertCommand.Parameters.AddWithValue("@HolderName", HolderName);
@@ -207,11 +208,7 @@ namespace PerspectifyTut
                 int Amount = Convert.ToInt32(Console.ReadLine());
                 if (CurrBalance >= Amount)
                 {
-                    string query = "UPDATE Users SET Balance = CASE Balance" +
-                    "WHEN Balance>=@amount THEN Balance-@amount" +
-                    "ELSE Balance" +
-                    "END" +
-                    "WHERE AccountNo = @AccountNo";
+                    string query = "UPDATE Users SET Balance = Balance-@Amount WHERE AccountNo = @AccountNo";
                     SQLiteCommand myCommand = new SQLiteCommand(query, Dataobject.myConnection);
                     myCommand.Parameters.AddWithValue("@AccountNo", AccountNo);
                     myCommand.Parameters.AddWithValue("@amount", Amount);
