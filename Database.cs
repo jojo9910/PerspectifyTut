@@ -12,6 +12,7 @@ namespace PerspectifyTut
     {
         public SQLiteConnection myConnection;
 
+
         public Database()
         {
             myConnection = new SQLiteConnection("Data Source=Bankdb.sqlite3");
